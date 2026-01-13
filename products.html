@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <h2>HappyHaul🎁</h2>
+        <button class="add-btn" onclick="window.location.href='cart.html'">🛒 Cart</button>
+    </div>
+</header>
+    <div class="container">
+        <h1 id="moodTitle">Products for your mood</h1>
+
+        <!-- Button to go to cart -->
+        <button class="add-btn" onclick="window.location.href='cart.html'">🛒 View Cart</button>
+
+        <!-- Product grid -->
+        <div id="productContainer" class="product-grid"></div>
+
+        <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Get selected mood
+        let mood = localStorage.getItem("selectedMood");
+
+        // Update page title
+        document.getElementById("moodTitle").innerText = `Products for: ${mood}`;
+
+        // Product data
+        const products = {
+            happy: [
+                { name: "Colorful Gift Box", price: "₹299", img: "https://picsum.photos/200?1" },
+                { name: "Trendy Watch", price: "₹499", img: "https://picsum.photos/200?2" },
+                { name: "Cute Accessories", price: "₹199", img: "https://picsum.photos/200?3" }
+            ],
+            sad: [
+                { name: "Soft Toy", price: "₹399", img: "https://picsum.photos/200?4" },
+                { name: "Scented Candle", price: "₹250", img: "https://picsum.photos/200?5" },
+                { name: "Comfort Pillow", price: "₹599", img: "https://picsum.photos/200?6" }
+            ],
+            stressed: [
+                { name: "Relaxing Journal", price: "₹199", img: "https://picsum.photos/200?7" },
+                { name: "Skincare Kit", price: "₹450", img: "https://picsum.photos/200?8" },
+                { name: "Calming Tea Pack", price: "₹150", img: "https://picsum.photos/200?9" }
+            ],
+            bored: [
+                { name: "Puzzle Game", price: "₹299", img: "https://picsum.photos/200?10" },
+                { name: "Story Book", price: "₹199", img: "https://picsum.photos/200?11" },
+                { name: "DIY Craft Kit", price: "₹350", img: "https://picsum.photos/200?12" }
+            ],
+            excited: [
+                { name: "Fashion Sunglasses", price: "₹399", img: "https://picsum.photos/200?13" },
+                { name: "Mini Gadget", price: "₹599", img: "https://picsum.photos/200?14" },
+                { name: "Trendy Bag", price: "₹799", img: "https://picsum.photos/200?15" }
+            ]
+        };
+
+        // Display products
+        let container = document.getElementById("productContainer");
+
+        // Initialize cart from localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Function to add product to cart
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${product.name} added to cart!`);
+        }
+
+        // Display products as cards
+        products[mood].forEach(item => {
+            container.innerHTML += `
+                <div class="product-card">
+                    <img src="${item.img}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.price}</p>
+                    <button class="add-btn" onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>
+                </div>
+            `;
+        });
+
+        // Go back function
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - HappyHaul 🎁</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HappyHaul top box -->
+    <div class="happyhaul-box">
+        <h1>HappyHaul 🎁</h1>
+    </div>
+
+    <div class="container">
+        <h2>Your Cart</h2>
+
+        <div id="cartItems" class="product-grid"></div>
+
+        <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Show cart items dynamically
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        let container = document.getElementById("cartItems");
+
+        if(cartItems.length === 0){
+            container.innerHTML = "<p>Your cart is empty.</p>";
+        } else {
+            cartItems.forEach(item => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <img src="${item.img}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                        <p>
